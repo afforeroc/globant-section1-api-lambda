@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  ContainerName:
+    Type: String
+    Default: ''
+  ImageURI:
+    Type: String
+    Default: ''
+  LambdaRole:
+    Type: String
+    Default: ''
+  Environment:
+    Type: String
+    Default: ''
+
+
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  TestLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Sub '${ContainerName}-lambda'
+      PackageType: Image
+      ImageUri: !Ref ImageURI
+      ImageConfig:
+        Command:
+          - !Sub '${ContainerName}.lambda_handler'
+      Description: 'API to load data to Snowflake'
+      MemorySize: 1024
+      Timeout: 900
+      Role: !Ref LambdaRole
+      Environment:
+        Variables:
+          envVariable: !Ref Environment

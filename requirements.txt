@@ -1,0 +1,4 @@
+python-dotenv
+pandas
+jsonschema
+snowflake-connector-python[secure-local-storage,pandas]
